@@ -1,0 +1,21 @@
+services:
+  ejabberd:
+    image: ghcr.io/processone/ejabberd:latest
+    container_name: ejabberd
+    ports:
+      - "5222:5222"
+      - "5280:5280"
+    volumes:
+      - ./ejabberd/ejabberd.yml:/opt/ejabberd/conf/ejabberd.yml:ro
+      - ./ejabberd/server.pem:/opt/ejabberd/conf/server.pem:ro
+    restart: unless-stopped
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: mosquitto
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+    restart: unless-stopped
