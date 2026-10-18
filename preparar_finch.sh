@@ -31,7 +31,7 @@ cat > "$HOME/.purple/accounts.xml" <<'XML'
 </account>
 XML
 
-echo "[4/4] Lista de contatos e mouse habilitado..."
+echo "[4/5] Lista de contatos e mouse habilitado..."
 cat > "$HOME/.purple/blist.xml" <<'XML'
 <?xml version='1.0' encoding='UTF-8' ?>
 <purple version='1.0'>
@@ -49,6 +49,10 @@ cat > "$HOME/.purple/blist.xml" <<'XML'
 XML
 
 printf '[general]\nmouse = 1\n' > "$HOME/.gntrc"
+
+echo "[5/5] Confiando no certificado autoassinado (evita o diálogo no 1º acesso)..."
+mkdir -p "$HOME/.purple/certificates/x509/tls_peers"
+cp ejabberd/server.crt "$HOME/.purple/certificates/x509/tls_peers/127.0.0.1" 2>/dev/null || true
 
 echo
 echo "Pronto. Rode:  finch"
