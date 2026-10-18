@@ -51,6 +51,27 @@ sudo docker exec ejabberd ejabberdctl register user2 localhost 123
 
 Accept the certificate on the first connection. Same for `user2`.
 
+## Bot Python (cliente XMPP + MQTT)
+
+O bot `bot.py` usa o módulo `xmpppy` para conversar com o Ejabberd e o
+`paho-mqtt` para publicar no Mosquitto. Ele loga como `user2`, responde às
+mensagens recebidas (comunicação bidirecional) e, quando recebe `ON` ou `OFF`,
+publica no tópico `imd0907/painel/luz/set`, que liga/desliga a luz do painel.
+
+```bash
+python3 -m pip install -r requirements.txt
+python3 bot.py
+```
+
+No Pidgin, com `user1` conectado, envie uma mensagem para `user2@localhost`:
+
+- `Olá` -> o bot responde e a mensagem aparece no log do painel
+- `ON` -> o bot responde e o checkbox/luz do painel é marcado
+- `OFF` -> o bot responde e o checkbox/luz é desmarcado
+
+O bot exige a conexão TLS do Ejabberd e imprime `conexão TLS ativa` quando
+consegue negociar o STARTTLS.
+
 ## Dashboard
 
 Open `painel/index.html` in the VM's Firefox. It connects to mosquitto on port 9001 and the status changes to "conectado".
