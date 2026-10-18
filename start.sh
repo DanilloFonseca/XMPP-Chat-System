@@ -29,11 +29,7 @@ echo "[4/5] Registrando usuários ('already registered' pode ser ignorado)..."
 "$DOCKER" exec ejabberd ejabberdctl register user1 localhost 123    || true
 "$DOCKER" exec ejabberd ejabberdctl register user2 localhost 123    || true
 
-echo "[5/6] Autorizando presença mútua no roster (user1 <-> user2)..."
-"$DOCKER" exec ejabberd ejabberdctl add_rosteritem user1 localhost user2 localhost "Bot (user2)" "" both || true
-"$DOCKER" exec ejabberd ejabberdctl add_rosteritem user2 localhost user1 localhost "user1" "" both || true
-
-echo "[6/6] Instalando dependências do bot (xmpppy + paho-mqtt)..."
+echo "[5/5] Instalando dependências do bot (xmpppy + paho-mqtt)..."
 if ! python3 -c "import xmpp, paho.mqtt" 2>/dev/null; then
     python3 -m pip install -r requirements.txt --break-system-packages >/dev/null 2>&1 \
         || python3 -m pip install -r requirements.txt >/dev/null 2>&1 \
