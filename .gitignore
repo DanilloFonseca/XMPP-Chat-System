@@ -1,3 +1,5 @@
 ejabberd/server.pem
 ejabberd/server.key
 ejabberd/server.crt
+__pycache__/
+*.pyc

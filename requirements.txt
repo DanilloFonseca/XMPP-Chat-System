@@ -1,0 +1,2 @@
+xmpppy
+paho-mqtt
